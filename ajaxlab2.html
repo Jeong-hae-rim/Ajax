@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+	var request = new XMLHttpRequest();
+	function Addr() {
+		var dom = document.getElementById("addr");
+
+		var str = "https://maps.googleapis.com/maps/api/geocode/json?address="
+				+ encodeURIComponent(dom.value)
+				+ "&key=AIzaSyD8k2DWC_7yFHCrH6LDR3RfITsmWMEqC8c"
+		request.open('GET', str, true);
+		request.send();
+	}
+	request.onload = function(event) {
+		if (request.status == 200) {
+			var str = request.responseText;
+			var target = document.getElementById('output');
+			var Json = JSON.parse(str);
+			console.log(Json);
+			target.innerHTML = "<h2>변환된 위도와 경도"+"<br>"
+					+ Json.results[0].geometry.location.lat + ", "
+					+ Json.results[0].geometry.location.lng + "</h2>";
+
+		}
+	};
+</script>
+</head>
+<body>
+	<h1>주소와 위도경도 변환 서비스</h1>
+	<hr>
+	<h3>주소를 입력해주세요.</h3>
+	<input type="text" id="addr">
+	<button onclick="Addr()">입력</button>
+	<br>
+	<div id="output"
+		style="width: 350px; margin: 10px auto; text-align: center"></div>
+</body>
+</html>
