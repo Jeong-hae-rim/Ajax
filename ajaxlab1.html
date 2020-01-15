@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <script>	
+     window.onload = function() {
+ 		var request = new XMLHttpRequest();
+ 		request.onload = function(event) {
+ 			if (request.status == 200) {
+ 				var str = request.responseText;
+ 				var target = document.getElementById('output');
+ 				var Json = JSON.parse(str);
+ 				target.innerHTML = "기준시간 : " + Json.time + "<br>" + "기온 : " 
+ 				                   + Json.temp + "<br>"+"<br>"+
+ 				                   "<img src= \"/edu/"+Json.img+"\" width=\"100\">"
+ 				
+ 			}
+ 		};
+ 		request.open('GET', 'content/weather.jsp', true);
+ 		request.send();
+ 	};
+		
+     </script>
+    </head>
+    <body>
+        <h1 style="text-align : center">오늘의 날씨 정보</h1>
+        <hr>
+        <br>
+        <div id="output" style="width:350px; margin : 10px auto; text-align : center">
+        </div>
+</body>
+</html>
